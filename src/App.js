@@ -1,0 +1,201 @@
+import React, { Component } from "react";
+import quizQuestions from "./api/quizQuestions";
+import Quiz from "./components/Quiz";
+import Result from "./components/Result";
+import logo from "./svg/logo.svg";
+import "./App.css";
+import WikiIframe from './components/WikiIframe'
+
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      counter: 0,
+      nextButton: false,
+      questionId: 1,
+      question: "",
+      answerOptions: [],
+      answer: "",
+      answersCount: {},
+			result: "",
+			wikiLink: "",
+			activeWikiLink: "",
+			learnMoreContent: '',
+			learnMoreLink: '',
+			validAnswers: 0,
+			questionsAnswered: 0,
+			rightAnswer: false
+    };
+
+		
+    this.wikiEl = React.createRef()
+    this.setNextQuestion = this.setNextQuestion.bind(this);
+		this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
+		this.openLearnMore = this.openLearnMore.bind(this)
+  }
+
+  componentDidMount() {
+    const shuffledAnswerOptions = quizQuestions.map((question) =>
+      this.shuffleArray(question.answers)
+    );
+    this.setState({
+      question: quizQuestions[0].question,
+      postAnswer: quizQuestions[0].postAnswer,
+      wikiLink: quizQuestions[0].wikiLink,
+      answerOptions: shuffledAnswerOptions[0],
+    });
+  }
+
+  shuffleArray(array) {
+    var currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
+
+  handleAnswerSelected(correct, answer, answerLink, event) {
+    this.setUserAnswer(event.currentTarget.value);
+		const {validAnswers} = this.state
+		const updatedValidAnswers = correct ? Number(validAnswers + 1) : validAnswers
+		this.setState( {
+			...this.state, 
+			learnMoreContent: answer,
+			learnMoreLink: answerLink,
+			rightAnswer: correct,
+			validAnswers: updatedValidAnswers,
+			questionsAnswered: this.state.questionsAnswered + 1
+		})
+
+    if (this.state.questionId < quizQuestions.length) {
+      this.setState({ nextButton: true });
+    } else {
+      setTimeout(() => this.setResults(this.getResults()), 8000);
+    }
+  }
+
+  setUserAnswer(answer) {
+    this.setState((state, props) => ({
+      answersCount: {
+        ...state.answersCount,
+        [answer]: (state.answersCount[answer] || 0) + 1,
+      },
+      answer: answer,
+    }));
+  }
+
+  setNextQuestion() {
+    const counter = this.state.counter + 1;
+    const questionId = this.state.questionId + 1;
+
+    this.setState({
+      counter: counter,
+      questionId: questionId,
+      nextButton: false,
+      question: quizQuestions[counter].question,
+      answerOptions: quizQuestions[counter].answers,
+      postAnswer: quizQuestions[counter].postAnswer,
+      wikiLink: quizQuestions[counter].wikiLink,
+			answer: '',
+			learnMoreContent: '',
+			learnMoreLink: '',
+    });
+	}
+	
+	openLearnMore () {
+		
+		this.setState({...this.state, activeWikiLink: this.state.wikiLink})
+
+		console.log(this.wikiEl.current)
+		window.setTimeout(()=> {
+			this.wikiEl.current.scrollIntoView({ alignToTop: true, behavior: "smooth" })
+		}, 100)
+	}
+
+  getResults() {
+    const answersCount = this.state.answersCount;
+    const answersCountKeys = Object.keys(answersCount);
+    const answersCountValues = answersCountKeys.map((key) => answersCount[key]);
+    const maxAnswerCount = Math.max.apply(null, answersCountValues);
+
+    return answersCountKeys.filter(
+      (key) => answersCount[key] === maxAnswerCount
+    );
+  }
+
+  setResults(result) {
+    this.setState({ result: "completed" });
+  }
+
+  renderQuiz() {
+    return (
+      <>
+        <Quiz
+          answer={this.state.answer}
+          answerOptions={this.state.answerOptions}
+          questionId={this.state.questionId}
+          question={this.state.question}
+          postAnswer={this.state.postAnswer}
+          wikiLink={this.state.wikiLink}
+          questionTotal={quizQuestions.length}
+					onAnswerSelected={this.handleAnswerSelected}
+					openLearnMore={this.openLearnMore}
+					learnMoreContent={this.state.learnMoreContent}
+					learnMoreLink={this.state.learnMoreLink}
+					rightAnswer={this.state.rightAnswer}
+        />
+        {this.state.nextButton ? (
+          <button onClick={this.setNextQuestion} className="next-button">
+            NEXT
+          </button>
+        ) : null}
+				{this.state.questionsAnswered > 0  &&
+						<div className="validAnswersContainer">
+							<div className='title'>
+								You answered {this.state.validAnswers.toString()} out of {this.state.questionsAnswered}   {this.state.questionsAnswered > 1 ? 'questions': 'question'} correctly
+							</div>
+						</div>
+				}
+      </>
+    );
+  }
+
+  renderResult() {
+    return <Result quizResult={this.state.result} />;
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <div className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h2>Civil Rights Quiz</h2>
+        </div>
+        {this.state.result ? this.renderResult() : this.renderQuiz()}
+				<div ref={this.wikiEl}>
+
+				{this.state.activeWikiLink && 
+				<WikiIframe 
+				url={this.state.activeWikiLink}/>
+				}
+				</div>
+      </div>
+    );
+  }
+}
+
+export default App;

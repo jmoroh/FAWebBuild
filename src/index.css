@@ -1,0 +1,280 @@
+body {
+	margin: 0;
+	margin-bottom:50px;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #eee;
+  font-family: sans-serif;
+}
+
+.container {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 20px;
+}
+
+@media (min-width: 769px) {
+  .container {
+    margin: 2.5rem auto;
+  }
+}
+
+/* Result Component */
+.result {
+  padding: 1.5rem 2.5rem;
+}
+
+.quizzBox {
+		width: fit-content;
+		padding: 2px;
+		border-radius: 20px;
+		color: white;
+}
+/* Quiz Component */
+.answerOptions {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* QuestionCount Component */
+.questionCount {
+  padding: 1.5rem 2.5rem 0;
+  font-size: 14px;
+}
+
+/* Question Component */
+.question {
+  margin: 0;
+  padding: 0.5rem 2.5rem 1.5rem 2.5rem;
+}
+
+/* AnswerOption Component */
+.answerOption {
+  border-top: 1px solid #eee;
+}
+.answerOption:last-child {
+  border-radius: 0px 0px 20px 20px;
+}
+
+.answerOption:hover {
+  background-color: #eefbfe;
+}
+
+.radioCustomButton {
+  position: absolute;
+  width: auto;
+  opacity: 0;
+}
+
+.radioCustomButton,
+.radioCustomLabel {
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.radioCustomLabel {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 1.5rem 2.5rem 1.5rem 5rem;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.radioCustomButton ~ .radioCustomLabel:before {
+  position: absolute;
+  top: 20px;
+  left: 38px;
+  width: 28px;
+  height: 28px;
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  background: #fff;
+  border: 1px solid #bbb;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.radioCustomButton:checked ~ .radioCustomLabel:before {
+  content: "";
+  background: #8bc53f url(./svg/icon-check.svg) no-repeat;
+  background-size: 27px;
+  border-color: #8bc53f;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out 0.3s;
+}
+
+.fade-leave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 1;
+}
+
+.fade-leave.fade-leave-active {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-appear {
+  opacity: 0;
+}
+
+.fade-appear.fade-appear-active {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.learnMoreLink {
+  color: #000000;
+  font-size: 16px;
+  font-weight: 700;
+
+  text-decoration: none;
+	text-transform: uppercase;
+	cursor: pointer;
+	
+}
+
+.learnMoreLink {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+
+  padding-left: 10px;
+  padding-bottom: 5px;
+	padding-right: 10px;
+	cursor: pointer;
+}
+
+.learnMoreLink::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to top, #fed330 25%, rgba(0, 0, 0, 0) 40%);
+
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  z-index: -1;
+
+  will-change: width;
+  transform: rotate(-2deg);
+	transform-origin: left bottom;
+	cursor: pointer;
+	
+}
+
+.learnMoreLink:hover::before {
+  width: 0;
+}
+
+
+/*
+* animation styles
+*/
+
+.learnMoreLink::before {
+  transition: width 0.1s ease-out;
+}
+
+.learnMoreLink:hover::before {
+  transition-duration: 0.15s;
+}
+.next-button {
+  font-weight: bold;
+  display: block;
+  margin: 0 auto;
+  border: none;
+  border-radius: 20px;
+  color: black;
+  font-size: 30px;
+  background: white;
+  padding: 10px 25px;
+  cursor: pointer;
+	border: 3px solid black;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.next-button:hover{
+	border-color:white;
+	background: black;
+	color:white;
+}
+
+.answerExplanationContainer {
+	padding: 0 2.5rem 1.5rem;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	font-size: 19px;
+	margin-bottom: 1rem;
+}
+
+.correctAnswer {
+	color:white;
+	padding: 13px;
+    width: fit-content;
+}
+.correctAnswer.correct {
+	background: #4bb543;
+}
+.correctAnswer.wrong {
+	background: #B33A3A;
+}
+
+.wikiContainer {
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+}
+.wikiIframe {
+	width: 90%;
+	height: 500px;
+
+}
+
+@media only screen and (max-width: 650px) {
+  .wikiIframe {
+		width: 100%;
+	}
+}
+
+.validAnswersContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 10px 0;
+}

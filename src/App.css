@@ -1,0 +1,29 @@
+.App-logo {
+  animation: spin infinite 20s linear;
+	height: 80px;
+	
+}
+
+.App-header {
+  background-color: #eee;
+  padding: 20px;
+  color: black;
+  text-align: center;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@media only screen and (max-width: 600px) {
+  .App-logo {
+		height: 55px;
+		margin-right: 12px;
+	}
+	.App-header {
+		display: flex;
+	}
+}
+
+
+
