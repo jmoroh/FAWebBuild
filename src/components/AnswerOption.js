@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 import Popover from "react-popover";
 
 function AnswerOption(props) {
-	const [isWrong, setIsWrong] = useState({})
+	const [isWrong, setIsWrong] = useState(false)
+	const style  = props.answered && props.isTrue ? { background: "rgb(75, 181, 67)", color: "white"  } : isWrong ?{ background: "#B33A3A", color: "white" } : { }
   return (
-    <li className="answerOption" style={isWrong}>
+    <li className="answerOption" style={style}>
       <input
         type="radio"
         className="radioCustomButton"
@@ -16,7 +17,7 @@ function AnswerOption(props) {
         disabled={props.answer}
         onChange={(event) => {
           if (!props.isTrue) {
-            setIsWrong({ background: "#B33A3A", color: "white" });
+            setIsWrong(true);
           }
           props.onAnswerSelected(props.isTrue, props.postAnswer, props.wikiLink, event);
         }}

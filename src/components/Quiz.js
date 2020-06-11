@@ -15,7 +15,8 @@ function Quiz(props) {
         answerContent={key.content}
         answerType={key.content}
 				isTrue={key.type}
-        postAnswer={props.postAnswer}
+				postAnswer={props.postAnswer}
+				answered={props.learnMoreLink != '' ? true : false}
         wikiLink={props.wikiLink}
         answer={props.answer}
         questionId={props.questionId}
@@ -35,30 +36,7 @@ function Quiz(props) {
       transitionAppear
       transitionAppearTimeout={500}
     >
-					{	props.learnMoreLink !== '' ? 
-					
-						<div
-							className='quizzBox'
-							style={{	background: props.rightAnswer? '#4bb543': '#B33A3A'}}
-						>
-							<QuestionCount counter={props.questionId} total={props.questionTotal} />
-        			<Question content={props.question} />
-							<div className="answerExplanationContainer">
-							{/* <div className={`correctAnswer ${props.rightAnswer?'correct': 'wrong'}`}>
-							{props.rightAnswer ? "Correct ": "Incorrect"}
-							</div> */}
-								<div className='answerExplanation'>
-								{props.postAnswer}
-
-								</div>
-						<a key="a" className="learnMoreLink" style={{color:'white'}} onClick={props.openLearnMore} >
-							Learn more
-            </a>
-						</div>
-
-
-						</div>
-						:
+				
       <div key={props.questionId}>
         <QuestionCount counter={props.questionId} total={props.questionTotal} />
         <Question content={props.question} />
@@ -68,9 +46,31 @@ function Quiz(props) {
 						{props.answerOptions.map(renderAnswerOptions)}
 						</ul>
 
+						{	props.learnMoreLink !== '' &&
 					
+					<div
+						className='quizzBox'
+						style={{	background: props.rightAnswer? '#4bb543': '#B33A3A'}}
+					>
+						<QuestionCount counter={props.questionId} total={props.questionTotal} />
+						<Question content={props.question} />
+						<div className="answerExplanationContainer">
+						{/* <div className={`correctAnswer ${props.rightAnswer?'correct': 'wrong'}`}>
+						{props.rightAnswer ? "Correct ": "Incorrect"}
+						</div> */}
+							<div className='answerExplanation'>
+							{props.postAnswer}
+
+							</div>
+					<a key="a" className="learnMoreLink" style={{color:'white'}} onClick={props.openLearnMore} >
+						Learn more
+					</a>
+					</div>
+					</div>
+				}
+				
       </div>
-		}
+		
     </CSSTransitionGroup>
   );
 }
