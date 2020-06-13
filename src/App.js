@@ -26,7 +26,8 @@ class App extends Component {
 			learnMoreLink: '',
 			validAnswers: 0,
 			questionsAnswered: 0,
-			rightAnswer: false
+			rightAnswer: false,
+			allQuestions: []
     };
 
 		
@@ -39,11 +40,13 @@ class App extends Component {
   componentDidMount() {
     const shuffledAnswerOptions = quizQuestions.map((question) =>
       this.shuffleArray(question.answers)
-    );
+		);
+		const allShuffledQuestions = this.shuffleArray(quizQuestions)
     this.setState({
-      question: quizQuestions[0].question,
-      postAnswer: quizQuestions[0].postAnswer,
-      wikiLink: quizQuestions[0].wikiLink,
+			allQuestions: allShuffledQuestions,
+      question: allShuffledQuestions[0].question,
+      postAnswer: allShuffledQuestions[0].postAnswer,
+      wikiLink: allShuffledQuestions[0].wikiLink,
       answerOptions: shuffledAnswerOptions[0],
     });
   }
@@ -81,7 +84,7 @@ class App extends Component {
 			questionsAnswered: this.state.questionsAnswered + 1
 		})
 
-    if (this.state.questionId < quizQuestions.length) {
+    if (this.state.questionId < this.state.allQuestions.length) {
       this.setState({ nextButton: true });
     } else {
       setTimeout(() => this.setResults(this.getResults()), 8000);
@@ -106,10 +109,10 @@ class App extends Component {
       counter: counter,
       questionId: questionId,
       nextButton: false,
-      question: quizQuestions[counter].question,
-      answerOptions: quizQuestions[counter].answers,
-      postAnswer: quizQuestions[counter].postAnswer,
-      wikiLink: quizQuestions[counter].wikiLink,
+      question: this.state.allQuestions[counter].question,
+      answerOptions: this.state.allQuestions[counter].answers,
+      postAnswer: this.state.allQuestions[counter].postAnswer,
+      wikiLink: this.state.allQuestions[counter].wikiLink,
 			answer: '',
 			learnMoreContent: '',
 			learnMoreLink: '',
@@ -151,7 +154,7 @@ class App extends Component {
           question={this.state.question}
           postAnswer={this.state.postAnswer}
           wikiLink={this.state.wikiLink}
-          questionTotal={quizQuestions.length}
+          questionTotal={this.state.allQuestions.length}
 					onAnswerSelected={this.handleAnswerSelected}
 					openLearnMore={this.openLearnMore}
 					learnMoreContent={this.state.learnMoreContent}
@@ -165,8 +168,11 @@ class App extends Component {
         ) : null}
 				{this.state.questionsAnswered > 0  &&
 						<div className="validAnswersContainer">
-							<div className='title'>
-								{/* You answered {this.state.validAnswers.toString()} out of {this.state.questionsAnswered}   {this.state.questionsAnswered > 1 ? 'questions': 'question'} correctly */}
+							<div className='pointsCounter'>
+								{this.state.questionsAnswered * 100} Points 
+							</div>
+							<div className='subtitle'>
+								Each point is a little donation towards Black Lives Matter
 							</div>
 						</div>
 				}
