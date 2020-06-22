@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { CSSTransitionGroup } from "react-transition-group";
+// import { CSSTransitionGroup } from "react-transition-group";
 import Question from "../components/Question";
 import QuestionCount from "../components/QuestionCount";
 import AnswerOption from "../components/AnswerOption";
@@ -27,17 +27,18 @@ function Quiz(props) {
   }
 
   return (
-    <CSSTransitionGroup
+    <div
       className="quiz-container"
-      component="div"
-      transitionName="fade"
-      transitionEnterTimeout={400}
-      transitionLeaveTimeout={100}
-      transitionAppear
-      transitionAppearTimeout={500}
+      // component="div"
+      // transitionName="fade"
+      // transitionEnterTimeout={400}
+      // transitionLeaveTimeout={100}
+      // transitionAppear
+      // transitionAppearTimeout={500}
     >
 				
-      <div key={props.questionId}>
+      <div  key={props.questionId}>
+				<div className='questionContainer'>
         <QuestionCount counter={props.questionId} total={props.questionTotal} />
         <Question content={props.question} />
 			
@@ -45,15 +46,17 @@ function Quiz(props) {
 
 						{props.answerOptions.map(renderAnswerOptions)}
 						</ul>
-
-						{	props.learnMoreLink !== '' &&
+				</div>
+					
+					{	props.learnMoreLink !== '' &&
 					
 					<div
 						className='quizzBox'
-						style={{	background: props.rightAnswer? '#4bb543': '#C20008'}}
+						// style={{	background: props.rightAnswer? '#4bb543': '#C20008'}}
 					>
 						<QuestionCount counter={props.questionId} total={props.questionTotal} />
-						<Question content={props.question} />
+
+						<h2 className='question'>Explanation</h2>
 						<div className="answerExplanationContainer">
 						{/* <div className={`correctAnswer ${props.rightAnswer?'correct': 'wrong'}`}>
 						{props.rightAnswer ? "Correct ": "Incorrect"}
@@ -62,17 +65,17 @@ function Quiz(props) {
 							{props.postAnswer}
 
 							</div>
-					<span key="a" className="learnMoreLink" style={{color:'white'}} onClick={props.openLearnMore} >
-						Learn more
-					</span>
+						<span key="a" className="learnMoreLink"  onClick={props.openLearnMore} >
+							Learn more
+						</span>
 					</div>
 					</div>
 				}
 				
       </div>
 		
-    </CSSTransitionGroup>
-  );
+    </div>
+  )
 }
 
 Quiz.propTypes = {
@@ -82,6 +85,6 @@ Quiz.propTypes = {
   questionId: PropTypes.number.isRequired,
   questionTotal: PropTypes.number.isRequired,
   onAnswerSelected: PropTypes.func.isRequired,
-};
+}
 
 export default Quiz;

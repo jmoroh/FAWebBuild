@@ -12,8 +12,8 @@ const NavBar = () => {
 			<img src={logo} className="App-logo" alt="logo" />
 		</div>
 		<div className='nav-menu'>
-			<NavLink exact={true} activeClassName='is-active' className='nav-menu-item' to="/">Home</NavLink>
-      <NavLink activeClassName='is-active' className='nav-menu-item' to="/about">About</NavLink>
+			<NavLink exact={true} activeClassName='is-active' className='nav-menu-item' to="/">HOME</NavLink>
+      <NavLink activeClassName='is-active' className='nav-menu-item' to="/about">ABOUT</NavLink>
 		</div>
 	</nav>)
 }

@@ -4,7 +4,7 @@ import Home from './routes/Home'
 import FAQ from './routes/Faq'
 import NavBar from './components/NavBar'
 import {
-	BrowserRouter as Router,
+	HashRouter as Router,
   Switch,
   Route,
   Link} from 'react-router-dom'

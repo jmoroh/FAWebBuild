@@ -147,6 +147,7 @@ class Home extends Component {
   renderQuiz() {
     return (
       <div className='topContainer'>
+				<div className='leftColumn'>
         <Quiz
           answer={this.state.answer}
           answerOptions={this.state.answerOptions}
@@ -161,13 +162,11 @@ class Home extends Component {
 					learnMoreLink={this.state.learnMoreLink}
 					rightAnswer={this.state.rightAnswer}
         />
+				</div>
+
 				<div className='rightColumn'>
-        {this.state.nextButton ? (
-          <button onClick={this.setNextQuestion} className="next-button">
-            NEXT
-          </button>
-        ) : null}
-				{this.state.questionsAnswered > 0  &&
+       
+				{/* {this.state.questionsAnswered > 0  && */}
 						<div className="validAnswersContainer">
 							<div className='pointsCounter'>
 							
@@ -177,7 +176,12 @@ class Home extends Component {
 								Each point is a little donation towards Black Lives Matter
 							</div> */}
 						</div>
-				}
+						{/* {this.state.nextButton ? ( */}
+          <button onClick={this.setNextQuestion} className="next-button">
+            Next Question
+          </button>
+        {/* ) : null} */}
+				{/* } */}
 				</div>
 
       </div>
@@ -191,25 +195,25 @@ class Home extends Component {
   render() {
     return (
 			<div className='quiz-app-container'>
-						{this.state.result ? this.renderResult() : this.renderQuiz()}
-						<div className="right-column">
-							<div className="wikiframe-container" ref={this.wikiEl}>
-							{this.state.activeWikiLink && 
-							<WikiIframe 
-							url={this.state.activeWikiLink}/>
-							}
-							</div>
-
-							<div className='ad-sense-container'>
-							<AdSense.Google
-								client='ca-pub-7292810486004926'
-								slot='7806394673'
-							/>
-							</div>
+					{this.state.result ? this.renderResult() : this.renderQuiz()}
+					<div>
+						<div className="wikiframe-container" ref={this.wikiEl}>
+						{this.state.activeWikiLink && 
+						<WikiIframe 
+						url={this.state.activeWikiLink}/>
+						}
 						</div>
-			</div>
-    );
-  }
+
+						<div className='ad-sense-container'>
+						<AdSense.Google
+							client='ca-pub-7292810486004926'
+							slot='7806394673'
+						/>
+						</div>
+					</div>
+			</div> 
+		) 
+	}
 }
 
 export default Home;
