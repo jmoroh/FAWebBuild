@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { CSSTransitionGroup } from "react-transition-group";
 import Question from "../components/Question";
@@ -16,7 +16,7 @@ function Quiz(props) {
         answerType={key.content}
 				isTrue={key.type}
 				postAnswer={props.postAnswer}
-				answered={props.learnMoreLink != '' ? true : false}
+				answered={props.learnMoreLink !== '' ? true : false}
         wikiLink={props.wikiLink}
         answer={props.answer}
         questionId={props.questionId}
@@ -28,7 +28,7 @@ function Quiz(props) {
 
   return (
     <CSSTransitionGroup
-      className="container"
+      className="quiz-container"
       component="div"
       transitionName="fade"
       transitionEnterTimeout={400}
@@ -50,7 +50,7 @@ function Quiz(props) {
 					
 					<div
 						className='quizzBox'
-						style={{	background: props.rightAnswer? '#4bb543': '#B33A3A'}}
+						style={{	background: props.rightAnswer? '#4bb543': '#C20008'}}
 					>
 						<QuestionCount counter={props.questionId} total={props.questionTotal} />
 						<Question content={props.question} />
@@ -62,9 +62,9 @@ function Quiz(props) {
 							{props.postAnswer}
 
 							</div>
-					<a key="a" className="learnMoreLink" style={{color:'white'}} onClick={props.openLearnMore} >
+					<span key="a" className="learnMoreLink" style={{color:'white'}} onClick={props.openLearnMore} >
 						Learn more
-					</a>
+					</span>
 					</div>
 					</div>
 				}

@@ -4,7 +4,7 @@ import Popover from "react-popover";
 
 function AnswerOption(props) {
 	const [isWrong, setIsWrong] = useState(false)
-	const style  = props.answered && props.isTrue ? { background: "rgb(75, 181, 67)", color: "white"  } : isWrong ?{ background: "#B33A3A", color: "white" } : { }
+	const style  = props.answered && props.isTrue ? { background: "rgb(75, 181, 67)", color: "white"  } : isWrong ?{ background: "#C20008", color: "white" } : { }
   return (
     <li className="answerOption" style={style}>
       <input
@@ -34,9 +34,9 @@ function AnswerOption(props) {
               borderRadius: "20px",
             }}
           >
-            <a key="a" onClick={props.openLearnMore} className="link">
-              read more
-            </a>
+            <span key="a" onClick={props.openLearnMore} className="link">
+              Read more
+            </span>
           </div>,
           <div
             key="b"
