@@ -170,11 +170,12 @@ class Home extends Component {
 				{this.state.questionsAnswered > 0  &&
 						<div className="validAnswersContainer">
 							<div className='pointsCounter'>
-								{this.state.questionsAnswered * 10} Points 
+							
+							You have now donated {this.state.questionsAnswered * 10} Aid Points to charities fighting for social justice
 							</div>
-							<div className='subtitle'>
+							{/* <div className='subtitle'>
 								Each point is a little donation towards Black Lives Matter
-							</div>
+							</div> */}
 						</div>
 				}
 				</div>
