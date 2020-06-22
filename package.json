@@ -13,7 +13,7 @@
     "react-scripts": "3.4.1",
     "react-transition-group": "^1.2.1"
   },
-  "homepage": "https://freeaid.org",
+  "homepage": "https://jmoroh.github.io/FreeAid2/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
